@@ -88,7 +88,7 @@ python scripts/zillow_price_my_rental.py MKE.xlsm --dry-run --limit 3         # 
 ```
 
 The script opens a visible Chrome window with a persistent profile
-(`~/.zillow-rent-profile`), types each address, reads the estimate, and saves
+(`~/.zillow-rent-profile`; pass `--executable-path` to use a specific Chrome/Chromium binary), types each address, reads the estimate, and saves
 the workbook after every row. It also appends each lookup to
 `zillow_rent_log.csv`. When it can't find an estimate on its own (a bot check,
 an extra form step, or a changed page layout), it pauses so the user can finish

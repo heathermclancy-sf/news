@@ -197,6 +197,7 @@ def main():
     p.add_argument("--no-assist", dest="assist", action="store_false", help="Never pause for manual help")
     p.add_argument("--wait", type=int, default=25, help="Seconds to wait for an estimate per address")
     p.add_argument("--channel", default="chrome", help="Browser channel: chrome (installed Chrome), msedge, or '' for bundled Chromium")
+    p.add_argument("--executable-path", help="Path to a Chrome/Chromium binary (overrides --channel)")
     p.add_argument("--profile", default=str(PROFILE_DIR), help="Persistent browser profile directory")
     p.add_argument("--log", default="zillow_rent_log.csv")
     args = p.parse_args()
@@ -220,7 +221,8 @@ def main():
             log.writerow(["sheet", "row", "address", "rent", "source_url", "time"])
         ctx = pw.chromium.launch_persistent_context(
             args.profile,
-            channel=args.channel or None,
+            channel=None if args.executable_path else (args.channel or None),
+            executable_path=args.executable_path,
             headless=False,
             viewport={"width": 1280, "height": 900},
         )
